@@ -7,9 +7,9 @@ using namespace std;
 int main()
 {
 
- //   CGameField *game = new CGameField;    //Размер матрицы
+    CGameField *game = new CGameField;    //Размер матрицы
 
- //   game->create_field();
+    game->create_field();
  //   game->show_field();
 
 //    for ( int i = 0; i < game->N; i++){       //Вывод матрицы на экран в понятном виде для пользователя
@@ -19,10 +19,6 @@ int main()
 //    }
 
     //вызов функции (ради проверки работает ли она как надо или нет)
-    int mn,mx,c;
-    scanf("%d%d",&mn,&mx);
-    c=f_rand(mn,mx);
-
-    cout << c << endl;
+    f_rand(game->buf,game->N);
     return 0;
 }

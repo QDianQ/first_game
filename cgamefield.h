@@ -5,7 +5,7 @@
 class CGameField
 {
 public:
-    int N;
+    int N,*buf;
     int **mass;
 
     CGameField(int n = 0);
