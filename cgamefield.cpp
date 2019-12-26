@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include "func_rand.h"
 
 CGameField::CGameField(int n)
 {
@@ -12,6 +13,9 @@ CGameField::CGameField(int n)
     mass = new int* [N];
     for (int i = 0; i < N; i++)     //формирование двумерного массива
         mass[i] = new int [N];
+    buf = new int[N*N];
+
+    f_rand(buf,N);          //формирование массива цифр без повторений
 }
 CGameField::~CGameField()
 {
@@ -27,7 +31,7 @@ void CGameField::create_field()
     int count = 0;
     for(int i = 0; i<N; i++){       //заполнение двумерного массива рандомными числами
         for(int j = 0; j < N; j++){
-        mass[i][j]= 0 + rand() % (N*N);
+        mass[i][j]= buf[count];
         count++;
         }
     }
@@ -39,9 +43,9 @@ void CGameField::show_field()
 
 
             if (j<N-1)
-               printf("%d ", mass[i][j]);
+               printf("%-5d", mass[i][j]);
             else
-                printf("%d\n", mass[i][j]);
+                printf("%d\n\n", mass[i][j]);
         }
     }
 }
