@@ -24,6 +24,7 @@ CGameField::~CGameField()
            delete [] mass[i];
        delete [] mass;
     }
+    delete [] buf;
 
 }
 void CGameField::create_field()
