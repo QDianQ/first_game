@@ -5,14 +5,16 @@
 class CGameField
 {
 public:
-    int N,*buf;
-    int **mass;
+
 
     CGameField(int n = 0);
     ~CGameField();
     void create_field();
     void show_field();
     void random_field();
+protected:
+    int N,*buf;
+    int **mass;
 };
 
 #endif // CGAMEFIELD_H
