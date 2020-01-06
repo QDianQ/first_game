@@ -13,7 +13,7 @@ int main()
     game->create_field();
     game->show_field();
     game->swap_numbers();
-    printf("Excellent!\nYou win!\n");
+    printf(" Excellent!\n You win!\n");
 
 
 
