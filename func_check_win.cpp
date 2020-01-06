@@ -1,5 +1,6 @@
 #include <iostream>
 #include "func_check_win.h"
+#include "cgamefield.h"
 
 bool f_check_win(int *mass_converted, int size)  //функция проверки условаия победы
 {

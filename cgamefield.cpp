@@ -5,6 +5,7 @@
 #include "func_rand.h"
 #include "func_converter.h"
 #include "func_check_win.h"
+#include "func_show_field.h"
 
 CGameField::CGameField(int n)
 {
@@ -44,23 +45,67 @@ void CGameField::create_field()
 }
 void CGameField::show_field()
 {
-    for (int i = 0; i < N; i++){       //Вывод матрицы на экран в понятном виде для пользователя
-        for (int j = 0; j < N; j++){
-
-
-            if (j<N-1)
-               printf("%-5d", mass[i][j]);
-            else
-                printf("%d\n\n", mass[i][j]);
-        }
-    }
+    f_show_field(mass,N);
 }
-void CGameField::check_win()
+void CGameField::swap_numbers()
 {
-    //Перемешать значения в матрице в рандомном порядке
+    char key;
+    int n,m;
     bool check=f_check_win(mass_converted,N);
-    if (check)
-        printf("win\n");
-    else
-        printf("lose\n");
+
+    while(check!=true){
+
+        for(int i=0;i<N;i++){         //поиск координат нуля для перемены местами нуля и нужной нам цифры
+            for(int j=0;j<N;j++){
+                if(mass[i][j]==0){
+                    n=i;
+                    m=j;
+                }
+            }
+        }
+        printf(" enter: ");
+        scanf("%s",&key);
+        std::cout << std::endl;
+//        switch (key) {      //управление клавишами w,a,s,d
+//        case 'w':
+//            if (n==0)
+//                break;
+//            mass[n][m]=mass[n-1][m];
+//            mass[n-1][m]=0;
+//            f_show_field(mass,N);
+//            check=f_check_win(mass_converted,N);
+//            break;
+
+//        case 's':
+//            if(n==N-1)
+//                break;
+//            mass[n][m]=mass[n+1][m];
+//            mass[n+1][m]=0;
+//            f_show_field(mass,N);
+//            check=f_check_win(mass_converted,N);
+//            break;
+
+//        case 'a':
+//            if(m==0)
+//                break;
+//            mass[n][m]=mass[n][m-1];
+//            mass[n][m-1]=0;
+//            f_show_field(mass,N);
+//            check=f_check_win(mass_converted,N);
+//            break;
+
+//        case 'd':
+//            if(m==N-1)
+//                break;
+//            mass[n][m]=mass[n][m+1];
+//            mass[n][m+1]=0;
+//            f_show_field(mass,N);
+//            check=f_check_win(mass_converted,N);
+//            break;
+
+//        default:
+//            printf("Use keys: w,a,s,d\n");
+//        }
+        check=1;
+    }
 }
