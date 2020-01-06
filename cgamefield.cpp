@@ -4,6 +4,7 @@
 #include <ctime>
 #include "func_rand.h"
 #include "func_converter.h"
+#include "func_check_win.h"
 
 CGameField::CGameField(int n)
 {
@@ -53,9 +54,13 @@ void CGameField::show_field()
                 printf("%d\n\n", mass[i][j]);
         }
     }
-    f_convert(buf,mass,N);
 }
-void CGameField::random_field()
+void CGameField::check_win()
 {
     //Перемешать значения в матрице в рандомном порядке
+    bool check=f_check_win(mass_converted,N);
+    if (check)
+        printf("win\n");
+    else
+        printf("lose\n");
 }

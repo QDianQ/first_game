@@ -11,7 +11,7 @@ public:
     ~CGameField();
     void create_field();
     void show_field();
-    void random_field();
+    void check_win();
 protected:
     int N,*buf,*mass_converted;
     int **mass;

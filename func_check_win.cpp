@@ -8,9 +8,9 @@ bool f_check_win(int *mass_converted, int size)  //функция проверк
         if(mass_converted[i]==i)
             count++;
     }
-    if (count==size*size){  //если кол-во правильных цифр совпадает с размером массива
+    if (count==size*size)  //если кол-во правильных цифр совпадает с размером массива
         return 1;           // то вернуть true
-    }else{                  //иначе
+    else                  //иначе
         return 0;           //вернуть false
-    }
+
 }
