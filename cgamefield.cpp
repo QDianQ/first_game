@@ -21,7 +21,6 @@ CGameField::CGameField(int n)
 
     f_rand(buf,N);          //формирование массива цифр без повторений
 
-
 }
 CGameField::~CGameField()
 {
@@ -31,6 +30,7 @@ CGameField::~CGameField()
        delete [] mass;
     }
     delete [] buf;
+    delete [] mass_converted;
 
 }
 void CGameField::create_field()
@@ -45,13 +45,13 @@ void CGameField::create_field()
 }
 void CGameField::show_field()
 {
-    f_show_field(mass,N);
+    f_show_field(mass,N);       //вывод игрового поля на экран
 }
 void CGameField::swap_numbers()
 {
-    char key;
-    int n,m;
-    bool check=f_check_win(mass_converted,N);
+    char key;           //переменная для указания направления движения
+    int n,m;            //переменные для двумерного массива
+    bool check;         //переменная для определения победы
 
     while(check!=true){
 
@@ -63,7 +63,7 @@ void CGameField::swap_numbers()
                 }
             }
         }
-        printf(" enter: ");
+        printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
         switch (key) {      //управление клавишами w,a,s,d
