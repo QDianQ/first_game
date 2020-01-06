@@ -13,7 +13,7 @@ public:
     void show_field();
     void random_field();
 protected:
-    int N,*buf;
+    int N,*buf,*mass_converted;
     int **mass;
 };
 

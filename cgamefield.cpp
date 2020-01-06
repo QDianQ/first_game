@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "func_rand.h"
+#include "func_converter.h"
 
 CGameField::CGameField(int n)
 {
@@ -14,8 +15,11 @@ CGameField::CGameField(int n)
     for (int i = 0; i < N; i++)     //формирование двумерного массива
         mass[i] = new int [N];
     buf = new int[N*N];
+    mass_converted = new int[N*N];
 
     f_rand(buf,N);          //формирование массива цифр без повторений
+
+
 }
 CGameField::~CGameField()
 {
@@ -49,6 +53,7 @@ void CGameField::show_field()
                 printf("%d\n\n", mass[i][j]);
         }
     }
+    f_convert(buf,mass,N);
 }
 void CGameField::random_field()
 {
