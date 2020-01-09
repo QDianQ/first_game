@@ -53,24 +53,17 @@ void CGameField::show_field()
 void CGameField::swap_numbers()
 {
     char key;           //переменная для указания направления движения
-//    int n,m;            //переменные для двумерного массива
+
     bool check;         //переменная для определения победы
 
     CCell *cell = new CCell;
 
     while(check!=true){
 
-        cell->find_cell(mass,N);
-        n=cell->x;
-        m=cell->y;
-//        for(int i=0;i<N;i++){         //поиск координат нуля для перемены местами нуля и нужной нам цифры
-//            for(int j=0;j<N;j++){
-//                if(mass[i][j]==0){
-//                    n=i;
-//                    m=j;
-//                }
-//            }
-//        }
+        cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
+        n=cell->x;                  //запись координат нуля
+        m=cell->y;                  //запись координат нуля
+
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
