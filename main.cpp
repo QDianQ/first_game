@@ -1,6 +1,5 @@
 #include <iostream>
 #include "cgamefield.h"
-#include "func_rand.h"
 #include "conio.h"
 #include "ccell.h"
 

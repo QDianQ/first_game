@@ -2,10 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "func_rand.h"
-#include "func_converter.h"
-#include "func_check_win.h"
-#include "func_show_field.h"
+#include "additional_function.h"
 #include "ccell.h"
 
 CGameField::CGameField(int n)
