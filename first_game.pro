@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        ccell.cpp \
         cgamefield.cpp \
         func_check_win.cpp \
         func_converter.cpp \
@@ -12,6 +13,7 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    ccell.h \
     cgamefield.h \
     func_check_win.h \
     func_converter.h \

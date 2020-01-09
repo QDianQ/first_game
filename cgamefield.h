@@ -13,6 +13,7 @@ public:
     void show_field();
     void swap_numbers();
 protected:
+    int *n,*m;
     int N,*buf,*mass_converted;
     int **mass;
 };

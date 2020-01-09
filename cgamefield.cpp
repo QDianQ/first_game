@@ -6,6 +6,7 @@
 #include "func_converter.h"
 #include "func_check_win.h"
 #include "func_show_field.h"
+#include "ccell.h"
 
 CGameField::CGameField(int n)
 {
@@ -20,6 +21,8 @@ CGameField::CGameField(int n)
     mass_converted = new int[N*N];
 
     f_rand(buf,N);          //формирование массива цифр без повторений
+
+
 
 }
 CGameField::~CGameField()
@@ -50,58 +53,63 @@ void CGameField::show_field()
 void CGameField::swap_numbers()
 {
     char key;           //переменная для указания направления движения
-    int n,m;            //переменные для двумерного массива
+//    int n,m;            //переменные для двумерного массива
     bool check;         //переменная для определения победы
+
+    CCell *cell = new CCell;
 
     while(check!=true){
 
-        for(int i=0;i<N;i++){         //поиск координат нуля для перемены местами нуля и нужной нам цифры
-            for(int j=0;j<N;j++){
-                if(mass[i][j]==0){
-                    n=i;
-                    m=j;
-                }
-            }
-        }
+        cell->find_cell(mass,N);
+        n=cell->x;
+        m=cell->y;
+//        for(int i=0;i<N;i++){         //поиск координат нуля для перемены местами нуля и нужной нам цифры
+//            for(int j=0;j<N;j++){
+//                if(mass[i][j]==0){
+//                    n=i;
+//                    m=j;
+//                }
+//            }
+//        }
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
         switch (key) {      //управление клавишами w,a,s,d
         case 'w':
-            if (n==0)
+            if (*n==0)
                 break;
-            mass[n][m]=mass[n-1][m];
-            mass[n-1][m]=0;
+            mass[*n][*m]=mass[*n-1][*m];
+            mass[*n-1][*m]=0;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 's':
-            if(n==N-1)
+            if(*n==N-1)
                 break;
-            mass[n][m]=mass[n+1][m];
-            mass[n+1][m]=0;
+            mass[*n][*m]=mass[*n+1][*m];
+            mass[*n+1][*m]=0;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 'a':
-            if(m==0)
+            if(*m==0)
                 break;
-            mass[n][m]=mass[n][m-1];
-            mass[n][m-1]=0;
+            mass[*n][*m]=mass[*n][*m-1];
+            mass[*n][*m-1]=0;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 'd':
-            if(m==N-1)
+            if(*m==N-1)
                 break;
-            mass[n][m]=mass[n][m+1];
-            mass[n][m+1]=0;
+            mass[*n][*m]=mass[*n][*m+1];
+            mass[*n][*m+1]=0;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
