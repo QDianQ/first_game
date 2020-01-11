@@ -1,15 +1,21 @@
 TEMPLATE = app
-CONFIG += console c++11
-CONFIG -= app_bundle
-CONFIG -= qt
+CONFIG +=  c++11
+#CONFIG -= app_bundle
+
+QT += core gui widgets
 
 SOURCES += \
         additional_function.cpp \
         ccell.cpp \
         cgamefield.cpp \
-        main.cpp
+        main.cpp \
+        mainwindow.cpp
 
 HEADERS += \
     additional_function.h \
     ccell.h \
-    cgamefield.h
+    cgamefield.h \
+    mainwindow.h
+
+FORMS += \
+    mainwindow.ui
