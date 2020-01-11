@@ -7,7 +7,9 @@ class CCell
 public:
     CCell();
     void find_cell(int **mass, int N);
-    int *x, *y; //координаты нуля
+
+//protected:
+    int x, y; //координаты нуля
 
 };
 
