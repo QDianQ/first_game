@@ -54,22 +54,20 @@ void CGameField::swap_numbers()
     bool check;         //переменная для определения победы
 
     CCell *cell = new CCell;
+    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
 
     while(check!=true){
 
-        cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
-        n=cell->x;                  //запись координат нуля
-        m=cell->y;                  //запись координат нуля
+//        n=cell->x;                  //запись координат нуля
+//        m=cell->y;                  //запись координат нуля
 
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
         switch (key) {      //управление клавишами w,a,s,d
         case 'w':
-            if (n==0)
-                break;
-            mass[n][m]=mass[n-1][m];
-            mass[n-1][m]=0;
+
+            direction=1;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);

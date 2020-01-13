@@ -7,8 +7,9 @@ class CCell
 public:
     CCell();
     void find_cell(int **mass, int N);
+    void edit_xy(int direction,int **mass);
 
-//protected:
+protected:
     int x, y; //координаты нуля
 
 };

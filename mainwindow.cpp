@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(onBtnClick()));
+//    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(onBtnClick()));
     //connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::onBtnClick);
 }
 
@@ -18,7 +18,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::onBtnClick(QWidget *sender)
 {
-    QString str = ui->pushButton_3->text();
-    ui->plainTextEdit->appendPlainText(str);
-    ui->plainTextEdit->appendPlainText("test_str");
+//    QString str = ui->pushButton_3->text();
+//    ui->plainTextEdit->appendPlainText(str);
+//    ui->plainTextEdit->appendPlainText("test_str");
 }

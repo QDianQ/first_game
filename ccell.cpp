@@ -17,3 +17,12 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
         }
     }
 }
+void CCell::edit_xy(int direction, int **mass)
+{
+    if (direction==1){
+        if (x!=0){
+            mass[x][y]=mass[x-1][y];
+            mass[x-1][y]=0;
+        }
+    }
+}

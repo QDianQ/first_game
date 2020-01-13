@@ -12,6 +12,7 @@ public:
     void create_field();        //создать игровое поле
     void show_field();          //вывести игровое поле на экран
     void swap_numbers();        //перемещение нуля по игровому полю
+    unsigned int direction;
 
 protected:
     int n, m;                  //переменные для двумерного массива
