@@ -54,52 +54,44 @@ void CGameField::swap_numbers()
     bool check;         //переменная для определения победы
 
     CCell *cell = new CCell;
+    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
 
     while(check!=true){
 
-        cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
-        n=cell->x;                  //запись координат нуля
-        m=cell->y;                  //запись координат нуля
+//        n=cell->x;                  //запись координат нуля
+//        m=cell->y;                  //запись координат нуля
 
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
         switch (key) {      //управление клавишами w,a,s,d
         case 'w':
-            if (n==0)
-                break;
-            mass[n][m]=mass[n-1][m];
-            mass[n-1][m]=0;
+            direction='w';
+            cell->edit_XY(direction,mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 's':
-            if(n==N-1)
-                break;
-            mass[n][m]=mass[n+1][m];
-            mass[n+1][m]=0;
+            direction='s';
+            cell->edit_XY(direction,mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 'a':
-            if(m==0)
-                break;
-            mass[n][m]=mass[n][m-1];
-            mass[n][m-1]=0;
+            direction='a';
+            cell->edit_XY(direction,mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
             break;
 
         case 'd':
-            if(m==N-1)
-                break;
-            mass[n][m]=mass[n][m+1];
-            mass[n][m+1]=0;
+            direction='d';
+            cell->edit_XY(direction,mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);

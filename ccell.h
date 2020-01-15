@@ -7,10 +7,10 @@ class CCell
 public:
     CCell();
     void find_cell(int **mass, int N);
+    void edit_XY(int direction,int **mass,int N);
 
-//protected:
+protected:
     int x, y; //координаты нуля
-
 };
 
 #endif // CCELL_H
