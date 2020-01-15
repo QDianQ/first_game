@@ -49,11 +49,19 @@ void CGameField::show_field()
 }
 void CGameField::swap_numbers()
 {
-    char key;           //переменная для указания направления движения
+    /// > Очень тонкая и показательная ошибка !
+    /// Дело в том, что key был объявлен СИМВОЛОМ, a scanf возвращает в указатель СТРОКУ
+    /// т.е. больше одного байта (символ + символ кона строки)
+    /// Это приводило к записи в недоступную для key область памяти.
+    /// Очевидно этот участок памяти относился к созданному следом объекту cell,
+    /// что и приводило к порче его данных. С такими вещами, увы часто можно столкнуться совершенно неожиданно.
+    /// К памяти нужно относиться очень бдительно.
+    char key[10];           //переменная для указания направления движения
 
-    bool check;         //переменная для определения победы
+    // > Нужно задавать начальное значение
+    bool check = false;         //переменная для определения победы
 
-    CCell *cell = new CCell;
+    CCell *cell = new CCell();
     cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
 
     while(check!=true){
@@ -62,36 +70,15 @@ void CGameField::swap_numbers()
 //        m=cell->y;                  //запись координат нуля
 
         printf(" press key: ");
-        scanf("%s",&key);
+        scanf("%s", &key);
         std::cout << std::endl;
-        switch (key) {      //управление клавишами w,a,s,d
+        switch (key[0]) {      //управление клавишами w,a,s,d
         case 'w':
-            direction='w';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 's':
-            direction='s';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 'a':
-            direction='a';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 'd':
-            direction='d';
-            cell->edit_XY(direction,mass,N);
+            // Все варианты идентичны, при таком построении функции cell->edit_XY
+            cell->edit_XY(key[0],mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
@@ -101,4 +88,6 @@ void CGameField::swap_numbers()
             printf("Use keys: w,a,s,d\n");
         }
     }
+
+    delete cell; // > Обязательно ! Говорил об этом в субботу
 }

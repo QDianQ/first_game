@@ -15,7 +15,5 @@ int main()
     game->swap_numbers();
     printf(" Excellent!\n You win!\n");
 
-
-
     return 0;
 }

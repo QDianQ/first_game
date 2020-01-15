@@ -1,10 +1,11 @@
 #include "ccell.h"
-#include "cgamefield.h"
+#include <iostream>
 
 CCell::CCell()
 {
 
 }
+
 void CCell::find_cell(int **mass, int N)    //поиск координат нуля для перемены местами нуля и нужной нам цифры
 {
     for(int i=0;i<N;i++){
@@ -17,7 +18,8 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
         }
     }
 }
-void CCell::edit_XY(int direction,int **mass,int N)
+
+void CCell::edit_XY(char direction, int **mass,int N)
 {
     if(direction=='w'){
         if (x!=0){
@@ -34,14 +36,14 @@ void CCell::edit_XY(int direction,int **mass,int N)
         }
     }
     if(direction=='a'){
-        if(y==0){
+        if(y!=0){ // > Ошибка с ==
             mass[x][y]=mass[x][y-1];
             mass[x][y-1]=0;
             y--;
         }
     }
     if(direction=='d'){
-        if(y==N-1){
+        if(y!=N-1){ // > Ошибка с ==
             mass[x][y]=mass[x][y+1];
             mass[x][y+1]=0;
             y++;

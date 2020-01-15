@@ -1,7 +1,6 @@
 #ifndef CGAMEFIELD_H
 #define CGAMEFIELD_H
 
-
 class CGameField
 {
 public:
