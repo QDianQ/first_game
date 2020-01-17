@@ -49,9 +49,9 @@ void CGameField::show_field()
 }
 void CGameField::swap_numbers()
 {
-    char key;           //переменная для указания направления движения
+    char key[10];           //переменная для указания направления движения
 
-    bool check;         //переменная для определения победы
+    bool check= false;         //переменная для определения победы
 
     CCell *cell = new CCell;
     cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
@@ -64,34 +64,12 @@ void CGameField::swap_numbers()
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
-        switch (key) {      //управление клавишами w,a,s,d
+        switch (key[0]) {      //управление клавишами w,a,s,d
         case 'w':
-            direction='w';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 's':
-            direction='s';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 'a':
-            direction='a';
-            cell->edit_XY(direction,mass,N);
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
         case 'd':
-            direction='d';
-            cell->edit_XY(direction,mass,N);
+            cell->edit_XY(key[0],mass,N);
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
@@ -101,4 +79,5 @@ void CGameField::swap_numbers()
             printf("Use keys: w,a,s,d\n");
         }
     }
+    delete cell;
 }

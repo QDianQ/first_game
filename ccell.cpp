@@ -34,14 +34,14 @@ void CCell::edit_XY(int direction,int **mass,int N)
         }
     }
     if(direction=='a'){
-        if(y==0){
+        if(y!=0){
             mass[x][y]=mass[x][y-1];
             mass[x][y-1]=0;
             y--;
         }
     }
     if(direction=='d'){
-        if(y==N-1){
+        if(y!=N-1){
             mass[x][y]=mass[x][y+1];
             mass[x][y+1]=0;
             y++;
