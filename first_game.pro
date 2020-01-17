@@ -4,10 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        additional_function.cpp \
+        ccell.cpp \
         cgamefield.cpp \
-        func_rand.cpp \
         main.cpp
 
 HEADERS += \
-    cgamefield.h \
-    func_rand.h
+    additional_function.h \
+    ccell.h \
+    cgamefield.h

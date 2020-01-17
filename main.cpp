@@ -1,6 +1,7 @@
 #include <iostream>
 #include "cgamefield.h"
-#include "func_rand.h"
+#include "conio.h"
+#include "ccell.h"
 
 using namespace std;
 
@@ -11,9 +12,8 @@ int main()
 
     game->create_field();
     game->show_field();
-
-
-    //вызов функции (ради проверки работает ли она как надо или нет)
+    game->swap_numbers();
+    printf(" Excellent!\n You win!\n");
 
     return 0;
 }
