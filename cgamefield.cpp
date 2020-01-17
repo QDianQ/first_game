@@ -49,60 +49,33 @@ void CGameField::show_field()
 }
 void CGameField::swap_numbers()
 {
-    char key;           //переменная для указания направления движения
+    char key[10];           //переменная для указания направления движения
 
-    bool check;         //переменная для определения победы
+    bool check=false;         //переменная для определения победы
 
     CCell *cell = new CCell;
     cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
 
     while(check!=true){
 
-//        n=cell->x;                  //запись координат нуля
-//        m=cell->y;                  //запись координат нуля
-
         printf(" press key: ");
         scanf("%s",&key);
         std::cout << std::endl;
-        switch (key) {      //управление клавишами w,a,s,d
-        case 'w':
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
-        case 's':
-            if(n==N-1)
-                break;
-            mass[n][m]=mass[n+1][m];
-            mass[n+1][m]=0;
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
-        case 'a':
-            if(m==0)
-                break;
-            mass[n][m]=mass[n][m-1];
-            mass[n][m-1]=0;
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
-
-        case 'd':
-            if(m==N-1)
-                break;
-            mass[n][m]=mass[n][m+1];
-            mass[n][m+1]=0;
-            f_show_field(mass,N);
-            f_convert(mass_converted,mass,N);
-            check=f_check_win(mass_converted,N);
-            break;
+        switch (key[0]) {      //управление клавишами w,a,s,d
+                case 'w':
+                case 's':
+                case 'a':
+                case 'd':
+                    // Все варианты идентичны, при таком построении функции cell->edit_XY
+                    cell->edit_XY(key[0],mass,N);
+                    f_show_field(mass,N);
+                    f_convert(mass_converted,mass,N);
+                    check=f_check_win(mass_converted,N);
+                    break;
 
         default:
             printf("Use keys: w,a,s,d\n");
         }
     }
+    delete cell;
 }

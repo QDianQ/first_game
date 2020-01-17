@@ -6,12 +6,12 @@ class CCell
 {
 public:
     CCell();
+    //~CCell();
     void find_cell(int **mass, int N);
-    void edit_xy(int direction,int **mass);
+    void edit_XY(char direction, int **mass, int N);
 
 protected:
     int x, y; //координаты нуля
-
 };
 
 #endif // CCELL_H

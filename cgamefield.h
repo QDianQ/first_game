@@ -12,10 +12,8 @@ public:
     void create_field();        //создать игровое поле
     void show_field();          //вывести игровое поле на экран
     void swap_numbers();        //перемещение нуля по игровому полю
-    unsigned int direction;
-
+    char direction;             //направление перемещения нуля
 protected:
-    int n, m;                  //переменные для двумерного массива
     int N, *buf, *mass_converted; //N-размерность матрицы,buf-массив с рандомными числами,mass_converted-массив для конвертирования двумерного массива в одномерный
     int **mass;                 //двумерный массив пятнашек
 };
