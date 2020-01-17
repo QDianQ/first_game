@@ -66,8 +66,6 @@ void CGameField::swap_numbers()
         std::cout << std::endl;
         switch (key) {      //управление клавишами w,a,s,d
         case 'w':
-
-            direction=1;
             f_show_field(mass,N);
             f_convert(mass_converted,mass,N);
             check=f_check_win(mass_converted,N);
