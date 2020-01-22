@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QGridLayout>
+#include <QLabel>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,8 +10,29 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-//    connect(ui->pushButton_3, SIGNAL(clicked()), this, SLOT(onBtnClick()));
-    //connect(ui->pushButton_3, &QPushButton::clicked, this, &MainWindow::onBtnClick);
+    QGridLayout *lt_grid = new QGridLayout;
+
+    int btnID=0,posX=0,posY=0;
+    int size = 3;
+    for (int i = 0; i < size; i++){         //Вывод матрицы на экран в понятном виде для пользователя
+        for (int j =0; j < size; j++){
+            if (posX<size){
+                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),this),posY,posX);
+                btnID++;
+                posX++;
+            }else{
+                posY++;
+                posX=0;
+                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),this),posY,posX);
+                btnID++;
+                posX++;
+            }
+        }
+    }
+    ui->centralwidget->setLayout(lt_grid);
+
+
+      adjustSize();
 }
 
 MainWindow::~MainWindow()
