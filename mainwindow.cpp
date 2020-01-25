@@ -3,6 +3,10 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QTextEdit>
+#include "cbtncell.h"
+#include "ccell.h"
+#include "cgamefield.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +15,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     QGridLayout *lt_grid = new QGridLayout;
+    textEdit = new QTextEdit;
+    QPushButton *sizeBtn = new QPushButton;
+
+    lt_grid->addWidget(textEdit,20,20);
+    sizeBtn->setText("Enter size field");
+    lt_grid->addWidget(sizeBtn,21,20);
+
+    connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
+
+
 
     int btnID=0,posX=0,posY=0;
     int size = 3;
@@ -31,7 +45,6 @@ MainWindow::MainWindow(QWidget *parent)
     }
     ui->centralwidget->setLayout(lt_grid);
 
-
       adjustSize();
 }
 
@@ -40,9 +53,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onBtnClick(QWidget *sender)
+void MainWindow::enterSizeBtnClick(QWidget *sender)
 {
-//    QString str = ui->pushButton_3->text();
-//    ui->plainTextEdit->appendPlainText(str);
-//    ui->plainTextEdit->appendPlainText("test_str");
+    sizeField = textEdit->toPlainText();
+//    textEdit->setText("completed");
+    sizeField.toInt();
+    size = sizeField.toInt();
+    CGameField *game = new CGameField(size);
 }

@@ -7,7 +7,7 @@ class CGameField
 public:
 
 
-    CGameField(int n = 0);
+    CGameField(int N);
     ~CGameField();
     void create_field();        //создать игровое поле
     void show_field();          //вывести игровое поле на экран

@@ -6,6 +6,7 @@ QT += core gui widgets
 
 SOURCES += \
         additional_function.cpp \
+        cbtncell.cpp \
         ccell.cpp \
         cgamefield.cpp \
         main.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     additional_function.h \
+    cbtncell.h \
     ccell.h \
     cgamefield.h \
     mainwindow.h

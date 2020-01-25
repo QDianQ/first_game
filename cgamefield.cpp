@@ -4,11 +4,13 @@
 #include <ctime>
 #include "additional_function.h"
 #include "ccell.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
-CGameField::CGameField(int n)
+CGameField::CGameField(int N)
 {
-    printf("enter size of field: "); //Ввод размера поля
-    scanf("%d",&N);
+//    printf("enter size of field: "); //Ввод размера поля
+//    scanf("%d",&N);
 
     srand(time(NULL));
     mass = new int* [N];

@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include <QTextEdit>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -14,10 +14,15 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+protected:
+    QString sizeField;
+    QTextEdit *textEdit;
+    int size;
 signals:
 
 public slots:
-    void onBtnClick(QWidget *sender = nullptr);
+    void enterSizeBtnClick(QWidget *sender = nullptr);
 
 private:
     Ui::MainWindow *ui;
