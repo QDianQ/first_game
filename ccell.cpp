@@ -11,8 +11,8 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
             if(mass[i][j]==0){
-                x=i;
-                y=j;
+                posX=i;
+                posY=j;
                 break;
             }
         }
@@ -22,31 +22,31 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
 void CCell::edit_XY(char direction, int **mass,int N)
 {
     if(direction=='w'){
-        if (x!=0){
-            mass[x][y]=mass[x-1][y];
-            mass[x-1][y]=0;
-            x--;
+        if (posX!=0){
+            mass[posX][posY]=mass[posX-1][posY];
+            mass[posX-1][posY]=0;
+            posX--;
         }
     }
     if(direction=='s'){
-        if(x!=N-1){
-            mass[x][y]=mass[x+1][y];
-            mass[x+1][y]=0;
-            x++;
+        if(posX!=N-1){
+            mass[posX][posY]=mass[posX+1][posY];
+            mass[posX+1][posY]=0;
+            posX++;
         }
     }
     if(direction=='a'){
-        if(y!=0){
-            mass[x][y]=mass[x][y-1];
-            mass[x][y-1]=0;
-            y--;
+        if(posY!=0){
+            mass[posX][posY]=mass[posX][posY-1];
+            mass[posX][posY-1]=0;
+            posY--;
         }
     }
     if(direction=='d'){
-        if(y!=N-1){
-            mass[x][y]=mass[x][y+1];
-            mass[x][y+1]=0;
-            y++;
+        if(posY!=N-1){
+            mass[posX][posY]=mass[posX][posY+1];
+            mass[posX][posY+1]=0;
+            posY++;
         }
     }
 }

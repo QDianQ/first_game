@@ -4,8 +4,6 @@
 #include <ctime>
 #include "additional_function.h"
 #include "ccell.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
 
 CGameField::CGameField(int N)
 {

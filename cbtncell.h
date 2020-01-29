@@ -2,9 +2,11 @@
 #define CBTNCELL_H
 
 #include "ccell.h"
+#include <QPushButton>
 
-class CBtnCell : public CCell
+class CBtnCell : public CCell, public QPushButton
 {
+
 public:
     CBtnCell();
     void updBtnPos();

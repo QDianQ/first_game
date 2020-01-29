@@ -6,6 +6,5 @@ CBtnCell::CBtnCell()
 }
 void CBtnCell::updBtnPos()
 {
-    posBtnX=x;
-    posBtnY=y;
+
 }

@@ -11,7 +11,7 @@ public:
     void edit_XY(char direction, int **mass, int N);
 
 protected:
-    int x, y; //координаты нуля
+    int posX, posY; //координаты нуля
 };
 
 #endif // CCELL_H

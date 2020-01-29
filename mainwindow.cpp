@@ -5,8 +5,10 @@
 #include <QPushButton>
 #include <QTextEdit>
 #include "cbtncell.h"
-#include "ccell.h"
-#include "cgamefield.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QDebug>
+#include "additional_function.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,38 +16,28 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QGridLayout *lt_grid = new QGridLayout;
-    textEdit = new QTextEdit;
+    QHBoxLayout *lt_horizntal = new QHBoxLayout;
+    QVBoxLayout *lt_vertical = new QVBoxLayout;
     QPushButton *sizeBtn = new QPushButton;
+    CBtnCell *testbtn = new CBtnCell;
+    testbtn->setText("testBtn");
 
-    lt_grid->addWidget(textEdit,20,20);
+    textEdit = new QTextEdit;
+    tmpQWidleft = new QWidget;
+
+    lt_horizntal->addWidget(tmpQWidleft);
+    lt_horizntal->insertLayout(1,lt_vertical);
+    lt_vertical->addWidget(textEdit);
     sizeBtn->setText("Enter size field");
-    lt_grid->addWidget(sizeBtn,21,20);
+    lt_vertical->addWidget(sizeBtn);
+    lt_vertical->addWidget(testbtn);
+    ui->centralwidget->setLayout(lt_horizntal);
+
 
     connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
 
 
 
-    int btnID=0,posX=0,posY=0;
-    int size = 3;
-    for (int i = 0; i < size; i++){         //Вывод матрицы на экран в понятном виде для пользователя
-        for (int j =0; j < size; j++){
-            if (posX<size){
-                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),this),posY,posX);
-                btnID++;
-                posX++;
-            }else{
-                posY++;
-                posX=0;
-                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),this),posY,posX);
-                btnID++;
-                posX++;
-            }
-        }
-    }
-    ui->centralwidget->setLayout(lt_grid);
-
-      adjustSize();
 }
 
 MainWindow::~MainWindow()
@@ -56,8 +48,51 @@ MainWindow::~MainWindow()
 void MainWindow::enterSizeBtnClick(QWidget *sender)
 {
     sizeField = textEdit->toPlainText();
-//    textEdit->setText("completed");
-    sizeField.toInt();
     size = sizeField.toInt();
-    CGameField *game = new CGameField(size);
+    qDebug()<<size;
+    createBtn();
+
+}
+void MainWindow::createBtn()
+{
+    clearBtn();
+//    CGameField *game = new CGameField(size);
+
+    QHBoxLayout *lt_h = dynamic_cast<QHBoxLayout*>(ui->centralwidget->layout());
+    QGridLayout *lt_grid = new QGridLayout;
+
+    int btnID=0,posX=0,posY=0;
+
+
+    for (int i = 0; i < size; i++){         //Вывод матрицы на экран в понятном виде для пользователя
+        for (int j =0; j < size; j++){
+            if (posX<size){
+                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),tmpQWidleft),posY,posX);
+                btnID++;
+                posX++;
+            }else{
+                posY++;
+                posX=0;
+                lt_grid->addWidget(new QPushButton("btn " + QString::number(btnID),tmpQWidleft),posY,posX);
+                btnID++;
+                posX++;
+            }
+        }
+    }
+
+//    QWidget *tmp_w = lt_h->takeAt(0)->widget();
+//    if (tmp_w)
+//        tmp_w->setLayout(lt_grid);
+    tmpQWidleft->setLayout(lt_grid);
+    adjustSize();
+}
+void MainWindow::clearBtn()
+{
+    QHBoxLayout *lt_h = dynamic_cast<QHBoxLayout*>(ui->centralwidget->layout());
+//    QLayout *lt_item = lt_h->takeAt(0)->widget()->layout();
+      QObjectList mass_child=tmpQWidleft->children();
+
+      foreach (QObject *var, mass_child) {
+        delete var;
+      }
 }
