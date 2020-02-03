@@ -15,6 +15,7 @@ CGameField::CGameField(int N)
     for (int i = 0; i < N; i++)     //формирование двумерного массива
         mass[i] = new int [N];
     buf = new int[N*N];
+    ID = new int[2];
     mass_converted = new int[N*N];
 
     f_rand(buf,N);          //формирование массива цифр без повторений
@@ -33,7 +34,7 @@ CGameField::~CGameField()
     delete [] mass_converted;
 
 }
-void CGameField::create_field()
+void CGameField::create_field(int N)
 {
     int count = 0;
     for(int i = 0; i<N; i++){       //заполнение двумерного массива рандомными числами
@@ -47,35 +48,35 @@ void CGameField::show_field()
 {
     f_show_field(mass,N);       //вывод игрового поля на экран
 }
-void CGameField::swap_numbers()
+void CGameField::swap_numbers(int N)
 {
-    char key[10];           //переменная для указания направления движения
+//    char key[10];           //переменная для указания направления движения
 
     bool check=false;         //переменная для определения победы
 
     CCell *cell = new CCell;
-    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
+    cell->find_cell(mass,N,ID);    //вывов метода поиска ячейки с нулем
 
-    while(check!=true){
+//    while(check!=true){
 
-        printf(" press key: ");
-        scanf("%s",&key);
-        std::cout << std::endl;
-        switch (key[0]) {      //управление клавишами w,a,s,d
-                case 'w':
-                case 's':
-                case 'a':
-                case 'd':
-                    // Все варианты идентичны, при таком построении функции cell->edit_XY
-                    cell->edit_XY(key[0],mass,N);
-                    f_show_field(mass,N);
-                    f_convert(mass_converted,mass,N);
-                    check=f_check_win(mass_converted,N);
-                    break;
+//        printf(" press key: ");
+//        scanf("%s",&key);
+//        std::cout << std::endl;
+//        switch (key[0]) {      //управление клавишами w,a,s,d
+//                case 'w':
+//                case 's':
+//                case 'a':
+//                case 'd':
+//                    // Все варианты идентичны, при таком построении функции cell->edit_XY
+//                    cell->edit_XY(key[0],mass,N);
+//                    f_show_field(mass,N);
+//                    f_convert(mass_converted,mass,N);
+//                    check=f_check_win(mass_converted,N);
+//                    break;
 
-        default:
-            printf("Use keys: w,a,s,d\n");
-        }
-    }
-    delete cell;
+//        default:
+//            printf("Use keys: w,a,s,d\n");
+//        }
+//    }
+//    delete cell;
 }

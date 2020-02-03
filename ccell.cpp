@@ -6,7 +6,7 @@ CCell::CCell()
 
 }
 
-void CCell::find_cell(int **mass, int N)    //поиск координат нуля для перемены местами нуля и нужной нам цифры
+void CCell::find_cell(int **mass, int N, int *ID)    //поиск координат нуля для перемены местами нуля и нужной нам цифры
 {
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
@@ -17,6 +17,8 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
             }
         }
     }
+    ID[0]=posX;
+    ID[1]=posY;
 }
 
 void CCell::edit_XY(char direction, int **mass,int N)

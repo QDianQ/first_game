@@ -9,6 +9,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class CGameField;
+class CBtnCell;
 
 class MainWindow : public QMainWindow
 {
@@ -22,8 +23,9 @@ public:
 protected:
     QString sizeField;
     QTextEdit *textEdit;
-    int size;
+    int size, btnID;
     CGameField *game;
+    CBtnCell *testbtn;
 
 signals:
 
