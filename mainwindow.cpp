@@ -53,10 +53,10 @@ void MainWindow::enterSizeBtnClick(QWidget *sender)
     sizeField = textEdit->toPlainText();
     size = sizeField.toInt();
 
-    game = new CGameField(size);
-    game->create_field(size);
-    game->swap_numbers(size);
-    testbtn->updBtnPos(game->ID);
+    game = new CGameField(size);    //передается размер поля пятнашек
+    game->create_field(size);       //создается поле
+    game->swap_numbers(size);       //нахождение координат нуля
+    testbtn->updBtnPos(game->ID);   //здесь я хотел передать координаты нуля в CBtnCell, но при запуске этого метода в дебагере приложение вылетает
 
     qDebug()<<size;
 
