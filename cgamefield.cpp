@@ -33,6 +33,7 @@ CGameField::~CGameField()
     delete [] buf;
     delete [] mass_converted;
 
+    // > ID не удаляется!
 }
 void CGameField::create_field(int N)
 {

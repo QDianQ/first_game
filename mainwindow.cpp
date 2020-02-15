@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     lt_vertical->addWidget(textEdit);
     sizeBtn->setText("Enter size field");
     lt_vertical->addWidget(sizeBtn);
-//    lt_vertical->addWidget(testbtn);
+    lt_vertical->addWidget(testbtn);
     ui->centralwidget->setLayout(lt_horizntal);
 
 
