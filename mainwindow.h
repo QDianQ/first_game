@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTextEdit>
+#include "ccell.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,13 +20,14 @@ public:
     ~MainWindow();
     void createBtn();
     void clearBtn();
+    CCell *cellZero;
 
 protected:
     QString sizeField;
     QTextEdit *textEdit;
     int size, btnID;
     CGameField *game;
-    CBtnCell *testbtn;
+    CBtnCell *zeroCellBtn;    
 
 signals:
 

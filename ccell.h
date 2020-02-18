@@ -7,7 +7,7 @@ class CCell
 public:
     CCell();
     //~CCell();
-    void find_cell(int **mass, int N, int *ID);
+    void find_cell(int **mass, int N);
     void edit_XY(char direction, int **mass, int N);
 
 protected:

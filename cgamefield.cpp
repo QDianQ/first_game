@@ -5,7 +5,10 @@
 #include "additional_function.h"
 #include "ccell.h"
 
-CGameField::CGameField(int N)
+CGameField::CGameField(
+        int N,
+        CCell *zeroCCell/*=nullptr*/
+        )
 {
 //    printf("enter size of field: "); //Ввод размера поля
 //    scanf("%d",&N);
@@ -15,10 +18,16 @@ CGameField::CGameField(int N)
     for (int i = 0; i < N; i++)     //формирование двумерного массива
         mass[i] = new int [N];
     buf = new int[N*N];
-    ID = new int[2];
     mass_converted = new int[N*N];
 
     f_rand(buf,N);          //формирование массива цифр без повторений
+    static bool flagCreateCell = false;
+    if (zeroCCell==nullptr){
+           flagCreateCell = true;
+           cell = new CCell;
+           }
+    else
+           cell=zeroCCell;
 
 
 
@@ -32,8 +41,10 @@ CGameField::~CGameField()
     }
     delete [] buf;
     delete [] mass_converted;
-
-    // > ID не удаляется!
+    static bool flagCreateCell;
+    if (flagCreateCell==true)
+            delete cell;
+            // > ID не удаляется!
 }
 void CGameField::create_field(int N)
 {
@@ -55,8 +66,8 @@ void CGameField::swap_numbers(int N)
 
     bool check=false;         //переменная для определения победы
 
-    CCell *cell = new CCell;
-    cell->find_cell(mass,N,ID);    //вывов метода поиска ячейки с нулем
+
+    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
 
 //    while(check!=true){
 
