@@ -9,13 +9,13 @@
 #include <QDebug>
 #include "cbtncell.h"
 #include "cgamefield.h"
+#include "cdialogentersize.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     QHBoxLayout *lt_horizntal = new QHBoxLayout;
     QVBoxLayout *lt_vertical = new QVBoxLayout;
     QPushButton *sizeBtn = new QPushButton;
@@ -25,14 +25,14 @@ MainWindow::MainWindow(QWidget *parent)
     zeroCellBtn = new CBtnCell;
     zeroCellBtn->hide();
     game=nullptr;
-    textEdit = new QTextEdit;
+    //textEdit = new QTextEdit;
     tmpQWidleft = new QWidget;
 
 
 
     lt_horizntal->addWidget(tmpQWidleft);
     lt_horizntal->insertLayout(1,lt_vertical);
-    lt_vertical->addWidget(textEdit);
+    //lt_vertical->addWidget(textEdit);
     sizeBtn->setText("Enter size field");
     lt_vertical->addWidget(sizeBtn);
     ui->centralwidget->setLayout(lt_horizntal);
@@ -55,9 +55,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::enterSizeBtnClick(QWidget *sender)
-{
-    sizeField = textEdit->toPlainText();
-    size = sizeField.toInt();
+{    
+    //sizeField = textEdit->toPlainText();
+    //size = sizeField.toInt();
     if(game!=nullptr){
         delete game;
         game=nullptr;
@@ -122,6 +122,6 @@ void MainWindow::clearBtn()
 }
 void MainWindow::onClickNewCell()
 {
-    textEdit->setText("click");     //хотел таким способом проверить работает ли метод
+//    textEdit->setText("click");     //хотел таким способом проверить работает ли метод
 }
 
