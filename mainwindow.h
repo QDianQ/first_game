@@ -27,12 +27,14 @@ protected:
     QTextEdit *textEdit;
     int size, btnID;
     CGameField *game;
-    CBtnCell *zeroCellBtn;    
+    CBtnCell *zeroCellBtn, *newCell;
+
 
 signals:
 
 public slots:
     void enterSizeBtnClick(QWidget *sender = nullptr);
+    void onClickNewCell();
 
 private:
     Ui::MainWindow *ui;

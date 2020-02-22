@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
+    CBtnCell *newCell = (CBtnCell*) sender();
+    connect(newCell,SIGNAL(clicked()), this, SLOT(onClickNewCell()));
 
 
 }
@@ -82,7 +84,7 @@ void MainWindow::createBtn()
     for (int i = 0; i < size; i++){         //Вывод матрицы на экран в понятном виде для пользователя
         static int count=0;        
         for (int j =0; j < size; j++){
-            CBtnCell *newCell;
+
             int id = game->buf[count];
             if (id==0)
                 newCell=zeroCellBtn;
@@ -117,5 +119,9 @@ void MainWindow::clearBtn()
       foreach (QObject *var, mass_child) {
         delete var;
       }
+}
+void MainWindow::onClickNewCell()
+{
+    textEdit->setText("click");     //хотел таким способом проверить работает ли метод
 }
 
