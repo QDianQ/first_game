@@ -38,9 +38,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->centralwidget->setLayout(lt_horizntal);
 
 
-    connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
+    //connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
+
     CBtnCell *newCell = (CBtnCell*) sender();
-    connect(newCell,SIGNAL(clicked()), this, SLOT(onClickNewCell()));
+    ///> Здесь sender не может работать!
+    /// Это специфический метод, который работает ТОЛЬКО в СЛОТЕ, ПОДКЛЮЧЕННОМ к СИГНАЛУ
+    /// Весь его смысл заключается в том, чтобы получать указатель на объект, испустивший
+    /// сигнал, обрабатываемый этим слотом. Как правило это нужно, когда один и тот-же
+    /// слот прикреплён к нескольким объектам (как у нас).
+
+    connect(sizeBtn ,SIGNAL(clicked()), this, SLOT(onClickNewCell()));
 
 
 }
@@ -123,5 +130,9 @@ void MainWindow::clearBtn()
 void MainWindow::onClickNewCell()
 {
 //    textEdit->setText("click");     //хотел таким способом проверить работает ли метод
+
+    ///> вот так можно проверить sender
+    QPushButton* btn = qobject_cast<QPushButton*>(sender());
+    qDebug() << btn->text();
 }
 
