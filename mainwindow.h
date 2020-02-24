@@ -24,7 +24,7 @@ public:
 
 protected:
     QString sizeField;
-    QTextEdit *textEdit;
+   // QTextEdit *textEdit;
     int size, btnID;
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;
