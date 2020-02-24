@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTextEdit>
 #include "ccell.h"
 
 QT_BEGIN_NAMESPACE
@@ -21,10 +20,9 @@ public:
     void createBtn();
     void clearBtn();
     CCell *cellZero;
+    void setSizeField(int sizeField);
 
 protected:
-    QString sizeField;
-   // QTextEdit *textEdit;
     int size, btnID;
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;
@@ -33,8 +31,9 @@ protected:
 signals:
 
 public slots:
-    void enterSizeBtnClick(QWidget *sender = nullptr);
+    void enterSize(QWidget *sender = nullptr);
     void onClickNewCell();
+    void onClickEnterSize();
 
 private:
     Ui::MainWindow *ui;

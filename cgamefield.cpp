@@ -10,9 +10,6 @@ CGameField::CGameField(
         CCell *zeroCCell/*=nullptr*/
         )
 {
-//    printf("enter size of field: "); //Ввод размера поля
-//    scanf("%d",&N);
-
     srand(time(NULL));
     mass = new int* [N];
     for (int i = 0; i < N; i++)     //формирование двумерного массива
@@ -29,8 +26,6 @@ CGameField::CGameField(
     else
            cell=zeroCCell;
 
-
-
 }
 CGameField::~CGameField()
 {
@@ -43,8 +38,7 @@ CGameField::~CGameField()
     delete [] mass_converted;
     static bool flagCreateCell;
     if (flagCreateCell==true)
-            delete cell;
-            // > ID не удаляется!
+            delete cell;            
 }
 void CGameField::create_field(int N)
 {
@@ -55,40 +49,9 @@ void CGameField::create_field(int N)
         count++;
         }
     }
+    cell->find_cell(mass,N);
 }
 void CGameField::show_field()
 {
     f_show_field(mass,N);       //вывод игрового поля на экран
-}
-void CGameField::swap_numbers(int N)
-{
-//    char key[10];           //переменная для указания направления движения
-
-    bool check=false;         //переменная для определения победы
-
-
-    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
-
-//    while(check!=true){
-
-//        printf(" press key: ");
-//        scanf("%s",&key);
-//        std::cout << std::endl;
-//        switch (key[0]) {      //управление клавишами w,a,s,d
-//                case 'w':
-//                case 's':
-//                case 'a':
-//                case 'd':
-//                    // Все варианты идентичны, при таком построении функции cell->edit_XY
-//                    cell->edit_XY(key[0],mass,N);
-//                    f_show_field(mass,N);
-//                    f_convert(mass_converted,mass,N);
-//                    check=f_check_win(mass_converted,N);
-//                    break;
-
-//        default:
-//            printf("Use keys: w,a,s,d\n");
-//        }
-//    }
-//    delete cell;
 }

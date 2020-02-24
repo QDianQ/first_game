@@ -15,7 +15,6 @@ public:
     ~CGameField();
     void create_field(int N);        //создать игровое поле
     void show_field();          //вывести игровое поле на экран
-    void swap_numbers(int N);        //перемещение нуля по игровому полю
     char direction;             //направление перемещения нуля
 
     int *buf;              //ID - массив для хранения координат нуля

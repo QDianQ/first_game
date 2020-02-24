@@ -15,13 +15,6 @@ class CBtnCell : public QPushButton, public CCell   //наверняка я не
 public:
     explicit CBtnCell(QWidget *parent = nullptr); // > В конструкторе желательно получать все аргументы, которые требуются конструкторам родительских классов
     explicit CBtnCell(const QString &text, QWidget *parent = nullptr);
-//    void updBtnPos(int *ID);
-protected:
-    //int posBtnX, posBtnY;                           //в эти переменные записываю координаты нуля, которые передаю через массив *ID
-    /// > Если ты под этими переменными полагаешь аналоги posX, PosY из CCell
-    /// То они не нужны, ты можешь в этом классе использовать,
-    /// без дополнительного объявления, аттрибуты и методы объявленные в
-    /// родительском классе (CCell, QPushButton). В этом основная соль наследования
 };
 
 #endif // CBTNCELL_H

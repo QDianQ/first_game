@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QDebug>
+#include <QApplication>
 
 CDialogEnterSize::CDialogEnterSize(QWidget *parent)
     : QDialog(parent)
@@ -13,6 +14,8 @@ CDialogEnterSize::CDialogEnterSize(QWidget *parent)
     spinBoxEnterSize = new QSpinBox;
     QPushButton *okBtn = new QPushButton("&Okey");
     QPushButton *closeBtn = new QPushButton("&Close");
+
+    spinBoxEnterSize->setMinimum(3);
 
     QHBoxLayout *left_layout = new QHBoxLayout;
     left_layout->addWidget(label);
@@ -27,35 +30,13 @@ CDialogEnterSize::CDialogEnterSize(QWidget *parent)
     main_layout->addLayout(right_layout);
 
     setLayout(main_layout);
+
     connect(spinBoxEnterSize, SIGNAL(valueChanged(int)), this, SLOT(getSizeField(int)));
     connect(okBtn, SIGNAL(clicked()), this, SLOT(onClickOkeyBtn()));
-    connect(closeBtn, SIGNAL(clicked()), this, SLOT(onClickCloseBtn()));
+    connect(closeBtn, SIGNAL(clicked()), qApp, SLOT(quit()), Qt::QueuedConnection);
 }
-
-//метод проверяющий одинаковые ли значения в SpinBox и enterSizeField
-int CDialogEnterSize::checkValue()
-{
-    if (spinBoxEnterSize->value() == enterSizeField and enterSizeField>=3)
-        return 1;
-    else
-        return 0;
-
-}
-
-//слот, который проверяет введен ли размер поля, и если соответсвует условию checkValue, то закрывает диалог
 void CDialogEnterSize::onClickOkeyBtn()
-{
-    if (checkValue())
-        close();
-}
+{    
+    done(spinBoxEnterSize->value());
 
-//метод закрывающий программу
-void CDialogEnterSize::onClickCloseBtn()
-{
-    exit(0);    //навярняка есть более лучший способ закрывать программу, но я другого не нашел
-}
-//слот для записи enterSizeField при взаимодействии с SpinBox
-void CDialogEnterSize::getSizeField(int)
-{
-    enterSizeField = spinBoxEnterSize->value();
 }

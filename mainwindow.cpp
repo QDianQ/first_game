@@ -1,9 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QGridLayout>
-#include <QLabel>
 #include <QPushButton>
-#include <QTextEdit>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QDebug>
@@ -20,31 +18,19 @@ MainWindow::MainWindow(QWidget *parent)
     QVBoxLayout *lt_vertical = new QVBoxLayout;
     QPushButton *sizeBtn = new QPushButton;
 
-
-
     zeroCellBtn = new CBtnCell;
     zeroCellBtn->hide();
     game=nullptr;
-    //textEdit = new QTextEdit;
     tmpQWidleft = new QWidget;
-
-
 
     lt_horizntal->addWidget(tmpQWidleft);
     lt_horizntal->insertLayout(1,lt_vertical);
-    //lt_vertical->addWidget(textEdit);
     sizeBtn->setText("Enter size field");
     lt_vertical->addWidget(sizeBtn);
     ui->centralwidget->setLayout(lt_horizntal);
 
-
-    connect(sizeBtn, SIGNAL(clicked()), this, SLOT(enterSizeBtnClick()));
-    CBtnCell *newCell = (CBtnCell*) sender();
-    connect(newCell,SIGNAL(clicked()), this, SLOT(onClickNewCell()));
-
-
+    connect(sizeBtn ,SIGNAL(clicked()), this, SLOT(onClickEnterSize()));
 }
-
 MainWindow::~MainWindow()
 {
     if(game!=nullptr)
@@ -53,34 +39,33 @@ MainWindow::~MainWindow()
     delete ui;
 
 }
-
-void MainWindow::enterSizeBtnClick(QWidget *sender)
+//метод получающий значение размера поля из диалога
+void MainWindow::setSizeField(int sizeFieled)
+{
+    size=sizeFieled;
+    enterSize();
+}
+//метод формирующий игровое поле и запускающий метод создания кнопок
+void MainWindow::enterSize(QWidget *sender)
 {    
-    //sizeField = textEdit->toPlainText();
-    //size = sizeField.toInt();
     if(game!=nullptr){
         delete game;
         game=nullptr;
     }
     game = new CGameField(size,zeroCellBtn);    //передается размер поля пятнашек
     game->create_field(size);       //создается поле
-    game->swap_numbers(size);       //нахождение координат нуля
-//    testbtn->updBtnPos(game->ID);   //здесь я хотел передать координаты нуля в CBtnCell, но при запуске этого метода в дебагере приложение вылетает
-
-    qDebug()<<size;
 
     createBtn();
-
 }
+//метод создания кнопок
 void MainWindow::createBtn()
 {
     clearBtn();
 
-    QHBoxLayout *lt_h = dynamic_cast<QHBoxLayout*>(ui->centralwidget->layout());
     QGridLayout *lt_grid = new QGridLayout;
 
     int posX=0,posY=0;
-
+    CBtnCell *newCell;
     for (int i = 0; i < size; i++){         //Вывод матрицы на экран в понятном виде для пользователя
         static int count=0;        
         for (int j =0; j < size; j++){
@@ -104,24 +89,28 @@ void MainWindow::createBtn()
         }
     }
 
-//    QWidget *tmp_w = lt_h->takeAt(0)->widget();
-//    if (tmp_w)
-//        tmp_w->setLayout(lt_grid);
+    connect(newCell,SIGNAL(clicked()),this,SLOT(onClickNewCell()));
+
     tmpQWidleft->setLayout(lt_grid);
     adjustSize();
 }
+//метод удаления кнопок
 void MainWindow::clearBtn()
 {
-//    QHBoxLayout *lt_h = dynamic_cast<QHBoxLayout*>(ui->centralwidget->layout());
-//    QLayout *lt_item = lt_h->takeAt(0)->widget()->layout();
       QObjectList mass_child=tmpQWidleft->children();
 
       foreach (QObject *var, mass_child) {
         delete var;
       }
 }
-void MainWindow::onClickNewCell()
+void MainWindow::onClickEnterSize()  //оставил для примера
 {
-//    textEdit->setText("click");     //хотел таким способом проверить работает ли метод
+    ///> вот так можно проверить sender
+        QPushButton* btn = qobject_cast<QPushButton*>(sender());
+        qDebug() << btn->text();
 }
-
+void MainWindow::onClickNewCell()   //слот для newCell
+{
+    CBtnCell* btn = qobject_cast<CBtnCell*>(sender());
+    qDebug() << btn->text();
+}
