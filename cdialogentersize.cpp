@@ -32,11 +32,15 @@ CDialogEnterSize::CDialogEnterSize(QWidget *parent)
     setLayout(main_layout);
 
     connect(spinBoxEnterSize, SIGNAL(valueChanged(int)), this, SLOT(getSizeField(int)));
-    connect(okBtn, SIGNAL(clicked()), this, SLOT(onClickOkeyBtn()));
-    connect(closeBtn, SIGNAL(clicked()), qApp, SLOT(quit()), Qt::QueuedConnection);
+    connect(okBtn, SIGNAL(clicked()), this, SLOT(onClickOK()));
+    connect(closeBtn, SIGNAL(clicked()), this, SLOT(onClickClose()));
 }
-void CDialogEnterSize::onClickOkeyBtn()
+void CDialogEnterSize::onClickOK()
 {    
     done(spinBoxEnterSize->value());
 
+}
+void CDialogEnterSize::onClickClose()
+{
+    exit(0);
 }

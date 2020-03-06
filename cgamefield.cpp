@@ -20,15 +20,18 @@ CGameField::CGameField(
     f_rand(buf,N);          //формирование массива цифр без повторений
     static bool flagCreateCell = false;
     if (zeroCCell==nullptr){
-           flagCreateCell = true;
-           cell = new CCell;
-           }
+         flagCreateCell = true;
+         cell = new CCell;
+         }
     else
-           cell=zeroCCell;
+        cell=zeroCCell;
+
+    sizeN=N;
 
 }
 CGameField::~CGameField()
 {
+    int N=sizeN;
     if(N!=0){
        for (int i=0;i < N; i++)
            delete [] mass[i];
@@ -38,20 +41,29 @@ CGameField::~CGameField()
     delete [] mass_converted;
     static bool flagCreateCell;
     if (flagCreateCell==true)
-            delete cell;            
+            delete cell;
 }
-void CGameField::create_field(int N)
+
+void CGameField::createField()
 {
     int count = 0;
-    for(int i = 0; i<N; i++){       //заполнение двумерного массива рандомными числами
-        for(int j = 0; j < N; j++){
+    for(int i = 0; i<sizeN; i++){       //заполнение двумерного массива рандомными числами
+        for(int j = 0; j < sizeN; j++){
         mass[i][j]= buf[count];
         count++;
         }
     }
-    cell->find_cell(mass,N);
+    cell->find_cell(mass,sizeN);
 }
-void CGameField::show_field()
+
+void CGameField::movementOnField(int direction)
 {
-    f_show_field(mass,N);       //вывод игрового поля на экран
+    cell->edit_XY(direction,mass,sizeN);
+    f_convert(mass_converted,mass,sizeN);
+}
+
+bool CGameField::checkOfWinGame()
+{
+    bool check=f_check_win(mass_converted,sizeN);
+    return check;
 }

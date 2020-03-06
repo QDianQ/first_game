@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "ccell.h"
+#include <QGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,16 +17,21 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    void createBtn();
-    void clearBtn();
-    CCell *cellZero;
+    ~MainWindow();    
+
     void setSizeField(int sizeField);
+    bool createNewGame = false;
 
 protected:
-    int size, btnID;
+    void createBtn();
+    void clearBtn();
+    void showMessageOfWin();
+    void swapPositionBtn(int indexNewCellBtn, int *randItemPositionX=nullptr, int *randItemPositionY=nullptr);
+    int size, btnID, massCell[4][2];
+
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;
+    int posBtnX=0,posBtnY=0;
 
 
 signals:
@@ -33,11 +39,15 @@ signals:
 public slots:
     void enterSize(QWidget *sender = nullptr);
     void onClickNewCell();
-    void onClickEnterSize();
+    void onClickRestart();
+    void onClickRandomMove();
+    void onClickShowDialog();   //временная кнопка
 
 private:
     Ui::MainWindow *ui;
     QWidget *tmpQWidleft;
+    QGridLayout *lt_grid;
+
 };
 
 #endif // MAINWINDOW_H

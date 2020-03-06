@@ -15,7 +15,8 @@ protected:
     QSpinBox *spinBoxEnterSize;
 
 public slots:
-    void onClickOkeyBtn();
+    void onClickOK();
+    void __attribute__((noreturn)) onClickClose();
 };
 
 #endif // CDIALOGENTERSIZE_H

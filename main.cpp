@@ -3,21 +3,29 @@
 #include "cdialogentersize.h"
 #include <QApplication>
 #include "mainwindow.h"
+#include <QDebug>
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    bool restart=false;
+    do{
+        QApplication a(argc, argv);
+
         CDialogEnterSize *dialogEnterSize = new CDialogEnterSize;
         int N = dialogEnterSize->exec();
-//        cout << N << endl;
-        if (N > 2){
-            MainWindow w;
-            w.setSizeField(N);    //не уверен, что вот так передавать значение - корректно
-            w.show();
-            return a.exec();
-        }else
-             return 0;
+
+        MainWindow w;
+        w.setSizeField(N);
+        w.show();
+        a.exec();
+        restart=w.createNewGame;
+    }while(restart);
+
+
+return 0;
+
+
 }
 
