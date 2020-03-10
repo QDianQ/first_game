@@ -27,7 +27,7 @@ protected:
     void clearBtn();
     void showMessageOfWin();
     void swapPositionBtn(int indexNewCellBtn, int *randItemPositionX=nullptr, int *randItemPositionY=nullptr);
-    int size, btnID, massCell[4][2];
+    int size, btnID, massCell[4][2]; ///> Это не тот массив кнопок. Долженбыть массив всех СBtnCell
 
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;

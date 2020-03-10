@@ -91,6 +91,7 @@ void MainWindow::createBtn()
             }
             else{
                 newCell = new CBtnCell("btn " + QString::number(id),tmpQWidleft);
+                ///> Что-то не то
                 newCell->getZeroPosition(zeroCellBtn);  //передать координаты нуля в объект newСell
             }
 
@@ -168,6 +169,7 @@ void MainWindow::onClickShowDialog()
     showMessageOfWin();
 }
 //кнопка для рандомного передвижения
+///> А где обещянный класс-прослойка (между логикой и нейросетью)?
 void MainWindow::onClickRandomMove()
 {
     //передать в массив координаты кнопок, которые удовлетворяют условию нажатия
@@ -234,6 +236,7 @@ void MainWindow::swapPositionBtn(int indexNewCellBtn, int *randItemPositionX,int
 
 
     //проверка корректности X,Y newCell
+    ///> Вся эта логика должна была уйти в gamefield
     for(int i=0;i<4;i++){
         if(itemCellPositionX==massCell[i][0] and itemCellPositionY==massCell[i][1]){
             qDebug() << "valid cell";

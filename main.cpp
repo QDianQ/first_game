@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
         w.setSizeField(N);
         w.show();
         a.exec();
+        ///> переменная createNewGame избыточна. Мы говорили,
+        /// что можно использовать просто различные аргументы (exit).
+        /// Значение этого аргумента можно получать из самого метода exec()
         restart=w.createNewGame;
     }while(restart);
 
