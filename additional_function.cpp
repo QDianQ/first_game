@@ -8,8 +8,16 @@
 bool f_check_win(int *mass_converted, int size)  //функция проверки условаия победы
 {
     int count=0;                            //счетчик кол-ва правильных цифр в массиве
+    int massCheck[size*size],check=1;
+    for (int i=0;i<size*size;i++){
+        if(check==size*size)
+            massCheck[i]=0;
+        else
+            massCheck[i]=check++;
+
+    }
     for(int i=0;i<size*size;i++){
-        if(mass_converted[i]==i)
+        if(mass_converted[i]==massCheck[i])
             count++;
     }
     if (count==size*size)                   //если кол-во правильных цифр совпадает с размером массива

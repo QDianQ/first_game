@@ -10,9 +10,6 @@ CGameField::CGameField(
         CCell *zeroCCell/*=nullptr*/
         )
 {
-//    printf("enter size of field: "); //Ввод размера поля
-//    scanf("%d",&N);
-
     srand(time(NULL));
     mass = new int* [N];
     for (int i = 0; i < N; i++)     //формирование двумерного массива
@@ -23,17 +20,18 @@ CGameField::CGameField(
     f_rand(buf,N);          //формирование массива цифр без повторений
     static bool flagCreateCell = false;
     if (zeroCCell==nullptr){
-           flagCreateCell = true;
-           cell = new CCell;
-           }
+         flagCreateCell = true;
+         cell = new CCell;
+         }
     else
-           cell=zeroCCell;
+        cell=zeroCCell;
 
-
+    sizeN=N;
 
 }
 CGameField::~CGameField()
 {
+    int N=sizeN;
     if(N!=0){
        for (int i=0;i < N; i++)
            delete [] mass[i];
@@ -44,51 +42,28 @@ CGameField::~CGameField()
     static bool flagCreateCell;
     if (flagCreateCell==true)
             delete cell;
-            // > ID не удаляется!
 }
-void CGameField::create_field(int N)
+
+void CGameField::createField()
 {
     int count = 0;
-    for(int i = 0; i<N; i++){       //заполнение двумерного массива рандомными числами
-        for(int j = 0; j < N; j++){
+    for(int i = 0; i<sizeN; i++){       //заполнение двумерного массива рандомными числами
+        for(int j = 0; j < sizeN; j++){
         mass[i][j]= buf[count];
         count++;
         }
     }
+    cell->find_cell(mass,sizeN);
 }
-void CGameField::show_field()
+
+void CGameField::movementOnField(int direction)
 {
-    f_show_field(mass,N);       //вывод игрового поля на экран
+    cell->edit_XY(direction,mass,sizeN);
+    f_convert(mass_converted,mass,sizeN);
 }
-void CGameField::swap_numbers(int N)
+
+bool CGameField::checkOfWinGame()
 {
-//    char key[10];           //переменная для указания направления движения
-
-    bool check=false;         //переменная для определения победы
-
-
-    cell->find_cell(mass,N);    //вывов метода поиска ячейки с нулем
-
-//    while(check!=true){
-
-//        printf(" press key: ");
-//        scanf("%s",&key);
-//        std::cout << std::endl;
-//        switch (key[0]) {      //управление клавишами w,a,s,d
-//                case 'w':
-//                case 's':
-//                case 'a':
-//                case 'd':
-//                    // Все варианты идентичны, при таком построении функции cell->edit_XY
-//                    cell->edit_XY(key[0],mass,N);
-//                    f_show_field(mass,N);
-//                    f_convert(mass_converted,mass,N);
-//                    check=f_check_win(mass_converted,N);
-//                    break;
-
-//        default:
-//            printf("Use keys: w,a,s,d\n");
-//        }
-//    }
-//    delete cell;
+    bool check=f_check_win(mass_converted,sizeN);
+    return check;
 }
