@@ -11,15 +11,12 @@ class CDialogEnterSize: public QDialog
 public:
     CDialogEnterSize(QWidget *parent=0);
     int enterSizeField=-1; //переменная для хранения размера поля, которая потом будет передваться
-
 protected:
     QSpinBox *spinBoxEnterSize;
-    int checkValue(); //метод проверяющий одинаковые ли значения в SpinBox и enterSizeField
 
 public slots:
-    void getSizeField(int); //слот для записи enterSizeField при взаимодействии с SpinBox
-    void onClickOkeyBtn();  //слот, который проверяет введен ли размер поля, и если соответсвует условию checkValue, то закрывает диалог
-    void onClickCloseBtn();
+    void onClickOK();
+    void __attribute__((noreturn)) onClickClose();
 };
 
 #endif // CDIALOGENTERSIZE_H

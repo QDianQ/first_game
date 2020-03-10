@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTextEdit>
 #include "ccell.h"
+#include <QGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,28 +17,37 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-    void createBtn();
-    void clearBtn();
-    CCell *cellZero;
+    ~MainWindow();    
+
+    void setSizeField(int sizeField);
+    bool createNewGame = false;
 
 protected:
-    QString sizeField;
-   // QTextEdit *textEdit;
-    int size, btnID;
+    void createBtn();
+    void clearBtn();
+    void showMessageOfWin();
+    void swapPositionBtn(int indexNewCellBtn, int *randItemPositionX=nullptr, int *randItemPositionY=nullptr);
+    int size, btnID, massCell[4][2]; ///> Это не тот массив кнопок. Долженбыть массив всех СBtnCell
+
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;
+    int posBtnX=0,posBtnY=0;
 
 
 signals:
 
 public slots:
-    void enterSizeBtnClick(QWidget *sender = nullptr);
+    void enterSize(QWidget *sender = nullptr);
     void onClickNewCell();
+    void onClickRestart();
+    void onClickRandomMove();
+    void onClickShowDialog();   //временная кнопка
 
 private:
     Ui::MainWindow *ui;
     QWidget *tmpQWidleft;
+    QGridLayout *lt_grid;
+
 };
 
 #endif // MAINWINDOW_H

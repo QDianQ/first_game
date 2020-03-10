@@ -11,42 +11,59 @@ void CCell::find_cell(int **mass, int N)    //поиск координат ну
     for(int i=0;i<N;i++){
         for(int j=0;j<N;j++){
             if(mass[i][j]==0){
-                posX=i;
-                posY=j;
+                posZeroX=i;
+                posZeroY=j;
                 break;
             }
-        }
+         }
     }
 }
-
-void CCell::edit_XY(char direction, int **mass,int N)
+void CCell::getCorrectPositionBtn(int (&CorrectPosition)[4][2])
 {
-    if(direction=='w'){
-        if (posX!=0){
-            mass[posX][posY]=mass[posX-1][posY];
-            mass[posX-1][posY]=0;
-            posX--;
+
+        CorrectPosition[0][0]=posZeroX-1;    //верх
+        CorrectPosition[0][1]=posZeroY;
+
+        CorrectPosition[1][0]=posZeroX+1;    //низ
+        CorrectPosition[1][1]=posZeroY;
+
+        CorrectPosition[2][0]=posZeroX;      //право
+        CorrectPosition[2][1]=posZeroY+1;
+
+        CorrectPosition[3][0]=posZeroX;      //лево
+        CorrectPosition[3][1]=posZeroY-1;
+}
+
+void CCell::edit_XY(int direction, int **mass,int N)
+{
+    if(direction==0){   //верх
+        if (posZeroX!=0){
+            mass[posZeroX][posZeroY]=mass[posZeroX-1][posZeroY];
+            mass[posZeroX-1][posZeroY]=0;
+            posZeroX--;
         }
     }
-    if(direction=='s'){
-        if(posX!=N-1){
-            mass[posX][posY]=mass[posX+1][posY];
-            mass[posX+1][posY]=0;
-            posX++;
+    if(direction==1){     //низ
+        if(posZeroX!=N-1){
+            mass[posZeroX][posZeroY]=mass[posZeroX+1][posZeroY];
+            mass[posZeroX+1][posZeroY]=0;
+            posZeroX++;
+
         }
     }
-    if(direction=='a'){
-        if(posY!=0){
-            mass[posX][posY]=mass[posX][posY-1];
-            mass[posX][posY-1]=0;
-            posY--;
+    if(direction==2){     //право
+        if(posZeroY!=N-1){
+            mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY+1];
+            mass[posZeroX][posZeroY+1]=0;
+            posZeroY++;
         }
     }
-    if(direction=='d'){
-        if(posY!=N-1){
-            mass[posX][posY]=mass[posX][posY+1];
-            mass[posX][posY+1]=0;
-            posY++;
+    if(direction==3){     //лево
+        if(posZeroY!=0){
+            mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY-1];
+            mass[posZeroX][posZeroY-1]=0;
+            posZeroY--;
         }
     }
+
 }
