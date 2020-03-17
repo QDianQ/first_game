@@ -91,25 +91,17 @@ void MainWindow::createBtn()
             }
             else{
                 newCell = new CBtnCell("btn " + QString::number(id),tmpQWidleft);
-                newCell->getZeroPosition(zeroCellBtn);  //передать координаты нуля в объект newСell
             }
 
             connect(newCell,SIGNAL(clicked()),this,SLOT(onClickNewCell()));
 
-            if (posBtnX<size){
-                lt_grid->addWidget(newCell,posBtnY,posBtnX);
-                posBtnX++;
-                count++;
-            }else{
-                posBtnY++;
-                posBtnX=0;
-                lt_grid->addWidget(newCell,posBtnY,posBtnX);
-                posBtnX++;
-                count++;
-            }
+            lt_grid->addWidget(newCell,i,j);
+            game->addCell(newCell,j,i,id);
+            count++;
         }
     }
 
+    qDebug() << "countCell " << game->countCell;
     tmpQWidleft->setLayout(lt_grid);
     adjustSize();
 }
@@ -125,11 +117,11 @@ void MainWindow::clearBtn()
 //слот newCell, который используется для получения индекса нажатой кнопки
 void MainWindow::onClickNewCell()
 {
-    CBtnCell* newCellSender = qobject_cast<CBtnCell*>(sender());
+    CBtnCell *newCellSender = qobject_cast<CBtnCell*>(sender());
 
-    int indexNewCellBtn = lt_grid->indexOf(newCellSender);
-
-    swapPositionBtn(indexNewCellBtn);
+    int newCellSenderID = newCellSender->getID();
+    if(game->movementOnField(newCellSenderID))
+        swapPositionBtn(newCellSender);
 }
 //при условии победы срабатывает этот метод
 void MainWindow::showMessageOfWin()
@@ -148,8 +140,9 @@ void MainWindow::showMessageOfWin()
 
     if(messageBox->clickedButton()== newGame)
     {        
-        createNewGame=true;
-        close();
+//        createNewGame=true;
+//        close();
+        exit(1);
     }
     else if(messageBox->clickedButton()== exitGame)
     {
@@ -159,8 +152,9 @@ void MainWindow::showMessageOfWin()
 //кнопка "restart"
 void MainWindow::onClickRestart()
 {
-    createNewGame=true;
-    close();
+//    createNewGame=true;
+    //close();
+    exit(10);
 }
 //временная кнопка
 void MainWindow::onClickShowDialog()
@@ -170,112 +164,56 @@ void MainWindow::onClickShowDialog()
 //кнопка для рандомного передвижения
 void MainWindow::onClickRandomMove()
 {
-    //передать в массив координаты кнопок, которые удовлетворяют условию нажатия
-    zeroCellBtn->getCorrectPositionBtn(massCell);
+//    //передать в массив координаты кнопок, которые удовлетворяют условию нажатия
+////    zeroCellBtn->getCorrectPositionBtn(massCell);
 
-    int direction = 0 + rand() % 4;     //рандом направления
-    qDebug() << "direction" << direction;
+//    int direction = 0 + rand() % 4;     //рандом направления
+//    qDebug() << "direction" << direction;
 
-    //координты корректных кнопок для нажатия
-    int *posX = &massCell[direction][0];
-    int *posY = &massCell[direction][1];
+//    //координты корректных кнопок для нажатия
+//    int *posX = &massCell[direction][0];
+//    int *posY = &massCell[direction][1];
 
-    //проверка, чтоб не вышло за границы матрицы
-    if(direction==0){   //верх
-        if (*posX>=0){
-            swapPositionBtn(100,posX,posY);
-        }
-    }
-    if(direction==1){     //низ
-        if(*posX<size){
-            swapPositionBtn(100,posX,posY);
-        }
-    }
-    if(direction==2){     //право
-        if(*posY<size){
-            swapPositionBtn(100,posX,posY);
-        }
-    }
-    if(direction==3){     //лево
-        if(*posY>=0){
-            swapPositionBtn(100,posX,posY);
-        }
-    }
+//    //проверка, чтоб не вышло за границы матрицы
+//    if(direction==0){   //верх
+//        if (*posX>=0){
+//            swapPositionBtn(100,posX,posY);
+//        }
+//    }
+//    if(direction==1){     //низ
+//        if(*posX<size){
+//            swapPositionBtn(100,posX,posY);
+//        }
+//    }
+//    if(direction==2){     //право
+//        if(*posY<size){
+//            swapPositionBtn(100,posX,posY);
+//        }
+//    }
+//    if(direction==3){     //лево
+//        if(*posY>=0){
+//            swapPositionBtn(100,posX,posY);
+//        }
+//    }
 
 
 }
 //метод меняющий местами newCell и zeroCell
-void MainWindow::swapPositionBtn(int indexNewCellBtn, int *randItemPositionX,int *randItemPositionY)
+void MainWindow::swapPositionBtn(CBtnCell *newCellSender)
 {
+    int itemCellPositionX, itemCellPositionY, itemZeroPositionX, itemZeroPositionY,a,b;
+
+    int indexNewCellBtn = lt_grid->indexOf(newCellSender);
     int indexZeroCellBtn = lt_grid->indexOf(zeroCellBtn);
-    int itemZeroPositionX, itemZeroPositionY,itemCellPositionY,itemCellPositionX,a,b;
+
     QLayoutItem *zeroItem, *nCellItem;
 
-    if(indexNewCellBtn!=100){
-        qDebug() << "used normal move";
+    lt_grid->getItemPosition(indexZeroCellBtn,&itemZeroPositionX,&itemZeroPositionY,&a,&b);
+    lt_grid->getItemPosition(indexNewCellBtn,&itemCellPositionX,&itemCellPositionY,&a,&b);
 
-        //передать в массив координаты кнопок, которые удовлетворяют условию нажатия
-        zeroCellBtn->getCorrectPositionBtn(massCell);
+    zeroItem=lt_grid->takeAt(indexZeroCellBtn);
+    nCellItem=lt_grid->takeAt(indexNewCellBtn);
 
-        lt_grid->getItemPosition(indexZeroCellBtn,&itemZeroPositionX,&itemZeroPositionY,&a,&b);
-        lt_grid->getItemPosition(indexNewCellBtn,&itemCellPositionX,&itemCellPositionY,&a,&b);
-
-    }else{
-        qDebug() << "used random move";
-        lt_grid->getItemPosition(indexZeroCellBtn,&itemZeroPositionX,&itemZeroPositionY,&a,&b);
-
-        itemCellPositionX=*randItemPositionX;
-        itemCellPositionY=*randItemPositionY;
-        QLayoutItem *nCell;
-        nCell = lt_grid->itemAtPosition(itemCellPositionX,itemCellPositionY);
-        indexNewCellBtn = lt_grid->indexOf(nCell);
-
-    }
-
-
-    //проверка корректности X,Y newCell
-    for(int i=0;i<4;i++){
-        if(itemCellPositionX==massCell[i][0] and itemCellPositionY==massCell[i][1]){
-            qDebug() << "valid cell";
-
-            zeroItem=lt_grid->takeAt(indexZeroCellBtn);
-            nCellItem=lt_grid->takeAt(indexNewCellBtn);
-
-            lt_grid->addItem(nCellItem,itemZeroPositionX,itemZeroPositionY);
-            lt_grid->addItem(zeroItem,itemCellPositionX,itemCellPositionY);
-
-            //выбор направления
-            switch (i) {
-
-            case 0:
-                qDebug() << "up";
-                game->movementOnField(0);
-                if(game->checkOfWinGame())
-                    showMessageOfWin();
-                break;
-
-            case 1:
-                qDebug() << "down";
-                game->movementOnField(1);
-                if(game->checkOfWinGame())
-                    showMessageOfWin();
-                break;
-
-            case 2:
-                qDebug() << "right";
-                game->movementOnField(2);
-                if(game->checkOfWinGame())
-                    showMessageOfWin();
-                break;
-
-            case 3:
-                qDebug() << "left";
-                game->movementOnField(3);
-                if(game->checkOfWinGame())
-                    showMessageOfWin();
-                break;
-            }
-            break;
-         }
-     }
+    lt_grid->addItem(nCellItem,itemZeroPositionX,itemZeroPositionY);
+    lt_grid->addItem(zeroItem,itemCellPositionX,itemCellPositionY);
 }

@@ -13,7 +13,7 @@ CDialogEnterSize::CDialogEnterSize(QWidget *parent)
     QLabel *label = new QLabel("Enter size of puzzle");
     spinBoxEnterSize = new QSpinBox;
     QPushButton *okBtn = new QPushButton("&Okey");
-    QPushButton *closeBtn = new QPushButton("&Close");
+    QPushButton *closeBtn = new QPushButton("&Exit");
 
     spinBoxEnterSize->setMinimum(3);
 

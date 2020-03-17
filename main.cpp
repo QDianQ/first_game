@@ -19,8 +19,9 @@ int main(int argc, char *argv[])
         MainWindow w;
         w.setSizeField(N);
         w.show();
-        a.exec();
-        restart=w.createNewGame;
+//        a.exec();
+//        restart=w.createNewGame;
+        restart=a.exec();
     }while(restart);
 
 

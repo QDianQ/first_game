@@ -14,8 +14,3 @@ CBtnCell::CBtnCell(const QString &text, QWidget *parent)
 {
 
 }
-void CBtnCell::getZeroPosition(CBtnCell *zeroCellBtn)
-{
-    posZeroX = zeroCellBtn->posZeroX;
-    posZeroY = zeroCellBtn->posZeroY;
-}

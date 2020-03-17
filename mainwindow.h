@@ -26,12 +26,12 @@ protected:
     void createBtn();
     void clearBtn();
     void showMessageOfWin();
-    void swapPositionBtn(int indexNewCellBtn, int *randItemPositionX=nullptr, int *randItemPositionY=nullptr);
-    int size, btnID, massCell[4][2];
+    void swapPositionBtn(CBtnCell *newCellSender);
+    int size, btnID,*itemPositon;
 
     CGameField *game;
     CBtnCell *zeroCellBtn, *newCell;
-    int posBtnX=0,posBtnY=0;
+//    int posBtnX=0,posBtnY=0;
 
 
 signals:

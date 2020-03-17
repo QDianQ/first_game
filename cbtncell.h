@@ -15,8 +15,6 @@ class CBtnCell : public QPushButton, public CCell   //наверняка я не
 public:
     explicit CBtnCell(QWidget *parent = nullptr); // > В конструкторе желательно получать все аргументы, которые требуются конструкторам родительских классов
     explicit CBtnCell(const QString &text, QWidget *parent = nullptr);
-
-    void getZeroPosition(CBtnCell *zeroCell);
 };
 
 #endif // CBTNCELL_H
