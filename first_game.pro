@@ -10,6 +10,7 @@ SOURCES += \
         ccell.cpp \
         cdialogentersize.cpp \
         cgamefield.cpp \
+        crandmove.cpp \
         main.cpp \
         mainwindow.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     ccell.h \
     cdialogentersize.h \
     cgamefield.h \
+    crandmove.h \
     mainwindow.h
 
 FORMS += \

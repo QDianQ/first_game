@@ -9,6 +9,7 @@
 #include "cdialogentersize.h"
 #include <QMessageBox>
 #include <QAbstractButton>
+#include "crandmove.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -52,7 +53,6 @@ MainWindow::~MainWindow()
         delete game;
     delete zeroCellBtn;
     delete ui;
-
 }
 //метод получающий значение размера поля из диалога
 void MainWindow::setSizeField(int sizeFieled)
@@ -101,7 +101,6 @@ void MainWindow::createBtn()
         }
     }
 
-    qDebug() << "countCell " << game->countCell;
     tmpQWidleft->setLayout(lt_grid);
     adjustSize();
 }
@@ -164,56 +163,44 @@ void MainWindow::onClickShowDialog()
 //кнопка для рандомного передвижения
 void MainWindow::onClickRandomMove()
 {
-//    //передать в массив координаты кнопок, которые удовлетворяют условию нажатия
-////    zeroCellBtn->getCorrectPositionBtn(massCell);
+    int randomPosX, randomPosY;
+    CRandMove *randMove = new CRandMove(zeroCellBtn);
+    CBtnCell *randomCell = new CBtnCell;
 
-//    int direction = 0 + rand() % 4;     //рандом направления
-//    qDebug() << "direction" << direction;
+    randMove->getRandPosition(&randomPosX, &randomPosY, size);
 
-//    //координты корректных кнопок для нажатия
-//    int *posX = &massCell[direction][0];
-//    int *posY = &massCell[direction][1];
+    game->getCell(*randomCell,randomPosX,randomPosY);
 
-//    //проверка, чтоб не вышло за границы матрицы
-//    if(direction==0){   //верх
-//        if (*posX>=0){
-//            swapPositionBtn(100,posX,posY);
-//        }
-//    }
-//    if(direction==1){     //низ
-//        if(*posX<size){
-//            swapPositionBtn(100,posX,posY);
-//        }
-//    }
-//    if(direction==2){     //право
-//        if(*posY<size){
-//            swapPositionBtn(100,posX,posY);
-//        }
-//    }
-//    if(direction==3){     //лево
-//        if(*posY>=0){
-//            swapPositionBtn(100,posX,posY);
-//        }
-//    }
-
-
+    if(game->movementOnField(randomCell->getID()))
+        swapPositionBtn(nullptr,&randomPosX,&randomPosY);
 }
 //метод меняющий местами newCell и zeroCell
-void MainWindow::swapPositionBtn(CBtnCell *newCellSender)
+void MainWindow::swapPositionBtn(CBtnCell *newCellSender,int *randomPosX,int *randomPosY)
 {
     int itemCellPositionX, itemCellPositionY, itemZeroPositionX, itemZeroPositionY,a,b;
 
-    int indexNewCellBtn = lt_grid->indexOf(newCellSender);
     int indexZeroCellBtn = lt_grid->indexOf(zeroCellBtn);
+    int indexNewCellBtn;
+
+    if(newCellSender!=nullptr)
+        indexNewCellBtn = lt_grid->indexOf(newCellSender);
+    else{
+        QLayoutItem *nCell;
+        nCell = lt_grid->itemAtPosition(*randomPosY,*randomPosX);
+        indexNewCellBtn = lt_grid->indexOf(nCell);
+    }
 
     QLayoutItem *zeroItem, *nCellItem;
 
-    lt_grid->getItemPosition(indexZeroCellBtn,&itemZeroPositionX,&itemZeroPositionY,&a,&b);
-    lt_grid->getItemPosition(indexNewCellBtn,&itemCellPositionX,&itemCellPositionY,&a,&b);
+    lt_grid->getItemPosition(indexZeroCellBtn,&itemZeroPositionY,&itemZeroPositionX,&a,&b);
+    lt_grid->getItemPosition(indexNewCellBtn,&itemCellPositionY,&itemCellPositionX,&a,&b);
 
     zeroItem=lt_grid->takeAt(indexZeroCellBtn);
     nCellItem=lt_grid->takeAt(indexNewCellBtn);
 
-    lt_grid->addItem(nCellItem,itemZeroPositionX,itemZeroPositionY);
-    lt_grid->addItem(zeroItem,itemCellPositionX,itemCellPositionY);
+    lt_grid->addItem(nCellItem,itemZeroPositionY,itemZeroPositionX);
+    lt_grid->addItem(zeroItem,itemCellPositionY,itemCellPositionX);
+
+    if(game->checkOfWinGame())
+        showMessageOfWin();
 }

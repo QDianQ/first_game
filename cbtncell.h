@@ -2,7 +2,6 @@
 #define CBTNCELL_H
 
 #include "ccell.h"
-#include "cgamefield.h"
 #include <QPushButton>
 
 /// > Чтобы не нарушать логику работы Qt-шных библиотек, нуджно их родительские классы указывать в первую очередь

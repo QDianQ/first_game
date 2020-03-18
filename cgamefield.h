@@ -17,11 +17,11 @@ public:
     void getCorrectPositionBtn(int (&CorrectPosition)[4][2]);
     bool swap(int id);
     bool addCell(CCell *cell, int posX, int posY, int id);
-    bool getCell(CCell *cell, int posX, int posY);
-    int countCell;      //счетчик заполнения cellMass       ||временно
+    bool getCell(CCell &cell, int posX, int posY);
 
 
 protected:
+    int countCell;      //счетчик заполнения cellMass
     int sizeN, *mass_converted; //N-размерность матрицы,buf-массив с рандомными числами,mass_converted-массив для конвертирования двумерного массива в одномерный
     int **mass;                 //двумерный массив пятнашек
     CCell **cellMass, *zeroCellptr;

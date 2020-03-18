@@ -29,7 +29,6 @@ CGameField::CGameField(
 
     countCell=0;
     sizeN=N;
-
 }
 CGameField::~CGameField()
 {
@@ -77,7 +76,6 @@ void CGameField::createField()
 //    cell->find_cell(mass,sizeN);
     find_cell();
 }
-
 bool CGameField::movementOnField(int id)
 {
     if(swap(id)){
@@ -86,7 +84,6 @@ bool CGameField::movementOnField(int id)
     }
     return false;
 }
-
 bool CGameField::checkOfWinGame()
 {
     bool check=f_check_win(mass_converted,sizeN);
@@ -143,100 +140,51 @@ bool CGameField::swap(int id)
                     cell->setPos(cellPositionX,cellPositionY+1);
                     zeroCellptr->setPos(cellPositionX,cellPositionY);
 
+                    mass[posZeroY][posZeroX]=mass[posZeroY-1][posZeroX];
+                    mass[posZeroY-1][posZeroX]=0;
+                    posZeroY--;
 
-                        mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY-1];
-                        mass[posZeroX][posZeroY-1]=0;
-                        posZeroY--;
 
-
-//                    if(checkOfWinGame())
-//                      showMessageOfWin();
-                    return true;
+                return true;
 
                 case 1:
 //                  qDebug() << "down";
                     cell->setPos(cellPositionX,cellPositionY-1);
                     zeroCellptr->setPos(cellPositionX,cellPositionY);
 
+                    mass[posZeroY][posZeroX]=mass[posZeroY+1][posZeroX];
+                    mass[posZeroY+1][posZeroX]=0;
+                    posZeroY++;
 
-                        mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY+1];
-                        mass[posZeroX][posZeroY+1]=0;
-                        posZeroY++;
-
-
-
-//                  if(checkOfWinGame())
-//                      showMessageOfWin();
-                    return true;
+                return true;
 
                 case 2:
 //                  qDebug() << "right";
                     cell->setPos(cellPositionX-1,cellPositionY);
                     zeroCellptr->setPos(cellPositionX,cellPositionY);
 
+                    mass[posZeroY][posZeroX]=mass[posZeroY][posZeroX+1];
+                    mass[posZeroY][posZeroX+1]=0;
+                    posZeroX++;
 
-                        mass[posZeroX][posZeroY]=mass[posZeroX+1][posZeroY];
-                        mass[posZeroX+1][posZeroY]=0;
-                        posZeroX++;
-
-
-
-//                  if(checkOfWinGame())
-//                      showMessageOfWin();
-                    return true;
+                return true;
 
                 case 3:
 //                  qDebug() << "left";
                     cell->setPos(cellPositionX+1,cellPositionY);
                     zeroCellptr->setPos(cellPositionX,cellPositionY);
 
+                    mass[posZeroY][posZeroX]=mass[posZeroY][posZeroX-1];
+                    mass[posZeroY][posZeroX-1]=0;
+                    posZeroX--;
 
-                        mass[posZeroX][posZeroY]=mass[posZeroX-1][posZeroY];
-                        mass[posZeroX-1][posZeroY]=0;
-                        posZeroX--;
-
-
-
-//                  if(checkOfWinGame())
-//                      showMessageOfWin();
-                    return true;
+                return true;
             }
         }
     }
-
-//    if(direction==0){   //верх
-//        if (posZeroX!=0){
-//            mass[posZeroX][posZeroY]=mass[posZeroX-1][posZeroY];
-//            mass[posZeroX-1][posZeroY]=0;
-//            posZeroX--;
-//        }
-//    }
-//    if(direction==1){     //низ
-//        if(posZeroX!=N-1){
-//            mass[posZeroX][posZeroY]=mass[posZeroX+1][posZeroY];
-//            mass[posZeroX+1][posZeroY]=0;
-//            posZeroX++;
-
-//        }
-//    }
-//    if(direction==2){     //право
-//        if(posZeroY!=N-1){
-//            mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY+1];
-//            mass[posZeroX][posZeroY+1]=0;
-//            posZeroY++;
-//        }
-//    }
-//    if(direction==3){     //лево
-//        if(posZeroY!=0){
-//            mass[posZeroX][posZeroY]=mass[posZeroX][posZeroY-1];
-//            mass[posZeroX][posZeroY-1]=0;
-//            posZeroY--;
-//        }
-//    }
-
     return false;
 }
-bool CGameField::getCell(CCell *cell, int posX, int posY)
+bool CGameField::getCell(CCell &cell, int posX, int posY)
 {
     if(posX<0 or posY<0)
         return false;
@@ -246,7 +194,7 @@ bool CGameField::getCell(CCell *cell, int posX, int posY)
     for(int i=0;i<sizeN*sizeN;i++){
         cellMass[i]->getPos(&X,&Y);
         if(X==posX and Y==posY){
-            cell=cellMass[i];
+            cell=*cellMass[i];
             return true;
         }
     }

@@ -26,7 +26,7 @@ protected:
     void createBtn();
     void clearBtn();
     void showMessageOfWin();
-    void swapPositionBtn(CBtnCell *newCellSender);
+    void swapPositionBtn(CBtnCell *newCellSender,int *randomPosX=nullptr,int *randomPosY=nullptr);
     int size, btnID,*itemPositon;
 
     CGameField *game;

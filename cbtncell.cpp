@@ -14,3 +14,4 @@ CBtnCell::CBtnCell(const QString &text, QWidget *parent)
 {
 
 }
+
